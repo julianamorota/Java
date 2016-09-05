@@ -1,0 +1,23 @@
+ public static class HelloServlet extends HttpServlet  {
+
+        Gson gson = new Gson();
+        BufferedReader br = new BufferedReader(new FileReader("src\\exemplo.json"));
+        Exemplo obj = gson.fromJson(br, Exemplo.class);
+        public HelloServlet() throws FileNotFoundException {}
+
+        protected void doGet(HttpServletRequest request,
+                             HttpServletResponse response) throws ServletException,
+                IOException {
+          
+            response.setContentType("text/html");
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().println("{id: " + obj.getId());
+            response.getWriter().println("familia: nome: " + obj.getFamilia().getNome());
+            response.getWriter().println("codigo: " + obj.getCodigo());
+            response.getWriter().println("propriedades: cor: " + obj.getPropriedade().getCor() );
+            response.getWriter().println("altura: " + obj.getPropriedade().getAltura() );
+            response.getWriter().println("peso: " + obj.getPropriedade().getPeso());
+
+        }
+    }

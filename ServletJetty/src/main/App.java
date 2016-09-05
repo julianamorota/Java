@@ -24,7 +24,7 @@ import javax.json.JsonValue;
 public class App extends HttpServlet{
 
     public static void main(String[] args) throws Exception {
-        Server server = new Server(8084);
+        Server server = new Server(8080);
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/hello");
         server.setHandler(context);
@@ -36,22 +36,25 @@ public class App extends HttpServlet{
 
         Gson gson = new Gson();
         BufferedReader br = new BufferedReader(new FileReader("src\\exemplo.json"));
-        //JsonObject jsonObj = gson.toJson(br);
-        JSONObject json = new JSONObject(br.toString());
         Exemplo obj = gson.fromJson(br, Exemplo.class);
+
+        String json = gson.toJson(obj);
+
         public HelloServlet() throws FileNotFoundException {}
 
         protected void doGet(HttpServletRequest request,
                              HttpServletResponse response) throws ServletException,
                 IOException {
+
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println(json);
 
-           /*
-            //response.setContentType("text/html");
-            response.setContentType("application/json");
+        }
 
+        //response.setContentType("text/html");
+        //response.setContentType("application/json");
+/*
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println("{id: " + obj.getId());
             response.getWriter().println("familia: nome: " + obj.getFamilia().getNome());
@@ -59,8 +62,7 @@ public class App extends HttpServlet{
             response.getWriter().println("propriedades: cor: " + obj.getPropriedade().getCor() );
             response.getWriter().println("altura: " + obj.getPropriedade().getAltura() );
             response.getWriter().println("peso: " + obj.getPropriedade().getPeso());
-            */
-        }
+  */
     }
 
     class Exemplo {

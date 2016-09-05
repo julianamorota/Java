@@ -6,16 +6,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.JsonObject;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import com.google.gson.Gson;
 import org.apache.commons.codec.binary.Base64;
+import org.json.JSONObject;
+
+import javax.json.Json;
+import javax.json.JsonArray;
+
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 public class App extends HttpServlet{
 
     public static void main(String[] args) throws Exception {
-        Server server = new Server(8083);
+        Server server = new Server(8084);
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/hello");
         server.setHandler(context);
@@ -27,21 +36,30 @@ public class App extends HttpServlet{
 
         Gson gson = new Gson();
         BufferedReader br = new BufferedReader(new FileReader("src\\exemplo.json"));
+        //JsonObject jsonObj = gson.toJson(br);
+        JSONObject json = new JSONObject(br.toString());
         Exemplo obj = gson.fromJson(br, Exemplo.class);
         public HelloServlet() throws FileNotFoundException {}
 
         protected void doGet(HttpServletRequest request,
                              HttpServletResponse response) throws ServletException,
                 IOException {
-            
-            response.setContentType("text/html");
+            response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().println("id: " + obj.getId() + "<br>");
-            response.getWriter().println("familia: nome: " + obj.getFamilia().getNome()  + "<br>");
-            response.getWriter().println("codigo: " + obj.getCodigo() + "<br>");
-            response.getWriter().println("propriedades: cor: " + obj.getPropriedade().getCor() + "<br>");
-            response.getWriter().println("altura: " + obj.getPropriedade().getAltura() + "<br>");
-            response.getWriter().println("peso: " + obj.getPropriedade().getPeso() + "<br>");
+            response.getWriter().println(json);
+
+           /*
+            //response.setContentType("text/html");
+            response.setContentType("application/json");
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().println("{id: " + obj.getId());
+            response.getWriter().println("familia: nome: " + obj.getFamilia().getNome());
+            response.getWriter().println("codigo: " + obj.getCodigo());
+            response.getWriter().println("propriedades: cor: " + obj.getPropriedade().getCor() );
+            response.getWriter().println("altura: " + obj.getPropriedade().getAltura() );
+            response.getWriter().println("peso: " + obj.getPropriedade().getPeso());
+            */
         }
     }
 
@@ -52,10 +70,12 @@ public class App extends HttpServlet{
         Propriedade propriedades;
 
         public String getId() {
+
             return id;
         }
 
         public Familia getFamilia() {
+
             return familia;
         }
 
@@ -64,6 +84,7 @@ public class App extends HttpServlet{
             return new String(decoded, "UTF-8");
         }
         public Propriedade getPropriedade() {
+
             return propriedades;
         }
     }
@@ -72,6 +93,7 @@ public class App extends HttpServlet{
         String nome;
 
         public String getNome() {
+
             return nome;
         }
     }
@@ -82,6 +104,7 @@ public class App extends HttpServlet{
         int peso;
 
         public String getCor() {
+
             return cor;
         }
 
@@ -90,6 +113,7 @@ public class App extends HttpServlet{
         }
 
         public int getPeso() {
+
             return peso;
         }
     }

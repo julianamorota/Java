@@ -1,0 +1,78 @@
+
+Scanner scanner = new Scanner(System.in);
+String value = scanner.nextLine();
+int value = scanner.nextInt();
+scanner.close();
+
+int [] values;
+values = new int[3];
+
+String[] words = new String[3];
+String [] fruits = {"apple", "banana", "kiwi"};
+for (String fruit : fruits){...}
+
+final (modificador) -> constante (tem que atribuir um valor)
+static -> pertence à classe, não aos objetos
+por exemplo: cria um static count e um construtor que incrementa 
+
+StringBuilder sb = new StringBuilder("");
+sb.append("texto 1");
+sb.append(" texto 2");
+syso(sb.toString()); -> texto 1 texto 2
+
+syso("exemplo %-10d; outro", 5) -> exemplo 10         ; outro
+
+botão direito > source > override/implement methods
+
+packages -> import.nomeDoPackage.nomedaClasse;
+import.nomeDoPackage.*; (todas as classes)
+
+private -- mesma classe
+public -- qualquer lugar
+protected -- mesma classe, subclasse e pacote
+sem modifier -- mesmo pacote
+
+polimorfismo - upcasting e downcasting
+
+static -> funciona pra não ter que ser instanciado
+
+abstract -> não pode ser instanciada
+abstract classes são como interfaces
+
+FileReader, BufferedReader
+
+anonymous classes
+
+serialization->object serialization where an object can be represented as a sequence of bytes that includes the object's data as well as information about the object's type and the types of data stored in the object.
+
+-arrays internamente
+ArrayList<Integer> numbers = new ArrayList<Integer>();
+numbers.add(10);
+numbers.get(0); -> index
+numbers.size();
+for (Integer value: numbers){
+	value;
+}
+
+-cada elemento tem referencia ao proximo elemento
+LinkedList<Integer> linkedList = new LinkedList<Integer>();
+
+-keys, values
+HashMap<Integer, String> map = new HashMap<Integer, String>();
+map.put(5, "Cinco");
+String text = map.get(5);
+for (Map.Entry<Integer, String> entry: map.entrySet()){
+	int key = entry.getKey();
+	String value = entry.getValue(); 
+}
+
+TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+for (Integer key: map.keySet()){
+}
+
+Set<String> set 1 = new HashSet<String>();
+-set não permite dados duplicados
+
+As dependências em Java são arquivos comprimidos e armazenados com a extensão .jar
+
+

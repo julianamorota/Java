@@ -1,0 +1,12 @@
+{
+  "id" : "0a790f18-5d36-48ca-9c98-2695a1a09b7c",
+  "familia" : {
+    "nome" : "Mamífero"
+  },
+  "codigo" : "TWFtw61mZXJv",
+  "propriedades" : {
+    "cor" : "Cinza",
+    "altura" : 110,
+    "peso" : 450
+  }
+}

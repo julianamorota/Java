@@ -1,0 +1,7 @@
+How to Build RESTful Application with JAX-RS 2 and IntelliJ IDEA 13 ...
+
+ver em casa
+
+
+https://chiaboy.wordpress.com/2014/07/20/simple-jersey-example-with-intellij-idea-and-tomcat/
+

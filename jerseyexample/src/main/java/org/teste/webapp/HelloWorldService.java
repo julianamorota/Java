@@ -1,44 +1,23 @@
 package org.teste.webapp;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.json.Json;
 import javax.ws.rs.core.Response;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import com.google.gson.Gson;
 import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 import java.io.*;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import com.google.gson.Gson;
-import org.apache.commons.codec.binary.Base64;
-import org.json.JSONObject;
-
-import java.util.List;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+
 
 @Path("/teste")
 public class HelloWorldService extends HttpServlet  {
@@ -62,16 +41,23 @@ public class HelloWorldService extends HttpServlet  {
                 "\"altura\":" + obj.getPropriedade().getAltura() + ", " +
                 "\"peso\":" + obj.getPropriedade().getPeso() + "}} ";
 
-
         return Response.status(200).entity(jsonFormatted).build();
         }
 
     @GET
     @Path("/query")
     @Produces(("application/json; charset=UTF-8"))
-    public Response getUsers(
-            @QueryParam("altura") int altura,
-            @QueryParam("peso") int peso) throws UnsupportedEncodingException, FileNotFoundException {
+    public Response alteraAlturaPeso(
+            @QueryParam("altura") String altura,
+            @QueryParam("peso") String peso) throws UnsupportedEncodingException, FileNotFoundException {
+        try{
+
+        int alturaInt = Integer.parseInt(altura);
+        int pesoInt = Integer.parseInt(peso);
+
+    } catch (NumberFormatException e) {
+        return Response.status(200).entity("Altura/peso não é um numero!").build();
+    }
 
         Gson gson = new Gson();
         BufferedReader br = new BufferedReader(new FileReader("src\\exemplo.json"));
@@ -94,6 +80,42 @@ public class HelloWorldService extends HttpServlet  {
         return Response.status(200).entity(jsonFormatted).build();
     }
 
+    @POST
+    @Path("/post")
+    @Consumes("application/json")
+    @Produces(("application/json; charset=UTF-8"))
+    public Response LeJSON(String json) throws UnsupportedEncodingException {
+
+        Gson gson = new Gson();
+        JSONObject jsonObject = new JSONObject(json);
+
+
+        try{
+            String id = (String) jsonObject.get("id");
+            JSONObject familia = (JSONObject) jsonObject.get("familia");
+            String nome = (String) familia.get("nome");
+            String codigo = (String) jsonObject.get("codigo");
+            JSONObject propriedades = (JSONObject) jsonObject.get("propriedades");
+            String cor = (String) propriedades.get("cor").toString();
+            int altura = (Integer.parseInt(propriedades.get("altura").toString()));
+            int peso = (Integer.parseInt(propriedades.get("peso").toString()));
+
+
+            String jsonFormatted = "{\"id\":\""+id+"\"," +
+                    "\"familia\":{" +
+                    "\"nome\":\"" + nome +"\"}," +
+                    "\"codigo\":\"" + codigo + "\", " +
+                    "\"propriedades\":{" +
+                    "\"cor\":\"" + cor + "\", " +
+                    "\"altura\":" + altura + ", " +
+                    "\"peso\":" + peso + "}} ";
+            return Response.status(201).entity(jsonFormatted).build();
+        } catch (NumberFormatException e) {
+            return Response.status(200).entity("Dados inválidos").build();
+        }catch (ClassCastException e) {
+            return Response.status(200).entity("Dados inválidos").build();
+        }
+    }
 
     }
 

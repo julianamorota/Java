@@ -1,0 +1,190 @@
+https://www.javacodegeeks.com/2015/02/jpa-tutorial.html
+
+
+
+**GUI**
+
+import java.awt.*;        // Using AWT container and component classes
+import java.awt.event.*;  // Using AWT event classes and listener interfaces
+
+// An AWT GUI program inherits from the top-level container java.awt.Frame
+public class App extends Frame implements ActionListener {
+    private Label lblInput;     // Declare input Label
+    private Label lblOutput;    // Declare output Label
+    private TextField tfInput;  // Declare input TextField
+    private TextField tfOutput; // Declare output TextField
+    private int sum = 0;        // Accumulated sum, init to 0
+
+    // Constructor to setup the GUI components and event handlers
+    public App() {
+        setLayout(new FlowLayout());
+        // "super" Frame (a Container) sets layout to FlowLayout, which arranges
+        // the components from left-to-right, and flow to next row from top-to-bottom.
+
+        lblInput = new Label("Enter an Integer: "); // Construct Label
+        add(lblInput);               // "super" Frame adds Label
+
+        tfInput = new TextField(10); // Construct TextField
+        add(tfInput);                // "super" Frame adds TextField
+
+        tfInput.addActionListener(this);
+        // tfInput is the source object that fires ActionEvent when entered.
+        // The source add "this" instance as an ActionEvent listener, which provides
+        //  an ActionEvent handler called actionPerformed().
+        // Hitting enter on tfInput invokes actionPerformed().
+
+        lblOutput = new Label("The Accumulated Sum is: ");  // allocate Label
+        add(lblOutput);               // "super" Frame adds Label
+
+        tfOutput = new TextField(10); // allocate TextField
+        tfOutput.setEditable(false);  // read-only
+        add(tfOutput);                // "super" Frame adds TextField
+
+        setTitle("AWT Accumulator");  // "super" Frame sets title
+        setSize(350, 120);  // "super" Frame sets initial window size
+        setVisible(true);   // "super" Frame shows
+    }
+
+    // The entry main() method
+    public static void main(String[] args) {
+        // Invoke the constructor to setup the GUI, by allocating an anonymous instance
+        new App();
+    }
+
+    // ActionEvent handler - Called back upon hitting enter key on TextField
+    @Override
+    public void actionPerformed(ActionEvent evt) {
+        // Get the String entered into the TextField tfInput, convert to int
+        int numberIn = Integer.parseInt(tfInput.getText());
+        sum += numberIn;      // Accumulate numbers entered into sum
+        tfInput.setText("");  // Clear input TextField
+        tfOutput.setText(sum + ""); // Display sum on the output TextField
+        // convert int to String
+    }
+}
+
+----------------------------
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class App {
+
+    private JFrame mainFrame;
+    private JLabel headerLabel;
+    private JLabel statusLabel;
+    private JPanel controlPanel;
+
+    public App(){
+        prepareGUI();
+    }
+
+    public static void main(String[] args){
+        App swingControlDemo = new App();
+        swingControlDemo.showEventDemo();
+    }
+
+    private void prepareGUI(){
+        mainFrame = new JFrame("Java SWING Examples");
+        mainFrame.setSize(400,400);
+        mainFrame.setLayout(new GridLayout(3, 1));
+
+        headerLabel = new JLabel("",JLabel.CENTER );
+        statusLabel = new JLabel("",JLabel.CENTER);
+
+        statusLabel.setSize(350,100);
+        mainFrame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent windowEvent){
+                System.exit(0);
+            }
+        });
+        controlPanel = new JPanel();
+        controlPanel.setLayout(new FlowLayout());
+
+        mainFrame.add(headerLabel);
+        mainFrame.add(controlPanel);
+        mainFrame.add(statusLabel);
+        mainFrame.setVisible(true);
+    }
+
+    private void showEventDemo(){
+        headerLabel.setText("Control in action: Button");
+
+        JButton okButton = new JButton("OK");
+        JButton submitButton = new JButton("Submit");
+        JButton cancelButton = new JButton("Cancel");
+
+        okButton.setActionCommand("OK");
+        submitButton.setActionCommand("Submit");
+        cancelButton.setActionCommand("Cancel");
+
+        okButton.addActionListener(new ButtonClickListener());
+        submitButton.addActionListener(new ButtonClickListener());
+        cancelButton.addActionListener(new ButtonClickListener());
+
+        controlPanel.add(okButton);
+        controlPanel.add(submitButton);
+        controlPanel.add(cancelButton);
+
+        mainFrame.setVisible(true);
+    }
+
+    private class ButtonClickListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+            if( command.equals( "OK" ))  {
+                statusLabel.setText("Ok Button clicked.");
+            }
+            else if( command.equals( "Submit" ) )  {
+                statusLabel.setText("Submit Button clicked.");
+            }
+            else  {
+                statusLabel.setText("Cancel Button clicked.");
+            }
+        }
+    }
+}
+
+-----------------------------------------------------------------------------
+**EXCEPTIONS
+A palavra chave throw, que está no imperativo, lança uma Exception. Isto é bem diferente de throws, que está no presente do indicativo, e que apenas avisa da possibilidade daquele método lançá-la, obrigando o outro método que vá utilizar deste de se preocupar com essa exceção em questão.
+
+-----------------------------------------------------------------------------
+**THREAD
+Para que a thread atual durma basta chamar o método a seguir, por exemplo, para dormir 3 segundos:
+Thread.sleep(3 * 1000);
+
+Quando extends (herda) Thread, não precisa instanciar Thread.
+class Multi extends Thread{  
+public void run(){  
+System.out.println("thread is running...");  
+}  
+public static void main(String args[]){  
+Multi t1=new Multi();  
+t1.start();  
+ }  
+}  
+Porém, quando implementa, é necessário instanciar.
+class Multi3 implements Runnable{  
+public void run(){  
+System.out.println("thread is running...");  
+}  
+  
+public static void main(String args[]){  
+Multi3 m1=new Multi3();  
+Thread t1 =new Thread(m1);  
+t1.start();  
+ }  
+}  
+
+------------------------------------------------------------------------------
+**STREAM
+InputStream: ler
+OutputStream: escrever
+-------------------------------------------------------------------------------
+**PROGRAMAÇÃO DINÂMICA
+Recursividade
+
+-------------------------------------------------------------------------------
+**C++

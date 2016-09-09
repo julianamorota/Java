@@ -8,12 +8,14 @@
   <name>jerseyexample Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet</artifactId>
@@ -31,6 +33,7 @@
           <artifactId>commons-codec</artifactId>
           <version>1.9</version>
       </dependency>
+
       <dependency>
           <groupId>org.eclipse.jetty</groupId>
           <artifactId>jetty-servlet</artifactId>
@@ -42,12 +45,32 @@
           <artifactId>json</artifactId>
           <version>20160810</version>
       </dependency>
+
       <dependency>
           <groupId>javax.json</groupId>
           <artifactId>javax.json-api</artifactId>
           <scope>provided</scope>
           <version>1.0</version>
       </dependency>
+
+      <dependency>
+          <groupId>com.h2database</groupId>
+          <artifactId>h2</artifactId>
+          <version>1.4.191</version>
+      </dependency>
+
+      <dependency>
+          <groupId>javax</groupId>
+          <artifactId>javaee-api</artifactId>
+          <version>7.0</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-entitymanager</artifactId>
+          <version>5.1.0.Final</version>
+      </dependency>
+
 
   </dependencies>
   <build>
@@ -63,7 +86,8 @@
                   <!-- <connectors> <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
                   <port>9090</port> </connector>
                   </connectors> -->
-                  <!-- force friendly name instead of artifact name + version -->			<contextPath>${project.build.finalName}</contextPath>
+                  <!-- force friendly name instead of artifact name + version -->
+                  <contextPath>${project.build.finalName}</contextPath>
                   <!-- You can save changes in a file or class and refresh your browser
                                       to view the changes. -->
                   <scanIntervalSeconds>3</scanIntervalSeconds>
